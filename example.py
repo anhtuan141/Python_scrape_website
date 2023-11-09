@@ -34,12 +34,17 @@ soup = BeautifulSoup(page.content, "html.parser")
 #         link_url = link["href"]
 #         print(f"Apply here: {link_url}\n")
 
-#Begin Scrape
+# Begin Scrape
 results = soup.find(id="truyen")
 
 # Scrape story name
-story_name = results.find(class_="title")
+story_name = results.find("h3", class_="title")
 print(story_name.text)
 print()
 
-#
+# Scrape story description
+story_description = results.find("div", class_="story-desc")
+inner_html = story_description.contents
+
+for element in inner_html:
+    print(element)
