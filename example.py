@@ -21,14 +21,13 @@ def scrape_story(url):
     story_description = results.find("div", class_="story-desc")
     inner_html = story_description.contents
 
-    def story_description_extract():
-        for element in inner_html:
-            return element
+    story_description_extract = "".join(map(str, inner_html))
 
     data_extract = [
         story_name_text,
-        story_description_extract()
+        story_description_extract
     ]
+
 
     dataFrame = pandas.DataFrame(data_extract)
 
