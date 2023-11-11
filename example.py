@@ -23,7 +23,7 @@ def scrape_story(url):
 
     def story_description_extract():
         for element in inner_html:
-            print(element)
+            return element
 
     data_extract = [
         story_name_text,
@@ -33,7 +33,8 @@ def scrape_story(url):
     dataFrame = pandas.DataFrame(data_extract)
 
     # Save the DataFrame to the CSV file
-    dataFrame.to_csv("story_info.csv", index="false")
+    dataFrame.to_csv(r"C:\Users\TuanBHA\story_info.csv", index=False)
+
 
 
 scrape_story(URL)
