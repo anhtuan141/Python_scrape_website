@@ -20,6 +20,14 @@ def scrape_story(url):
     inner_html = story_description.contents
     story_description_text = "".join(map(str, inner_html))
 
+    # Scrape author
+    story_author = results.find("a", itemprop="author")
+    print(story_author.text)
+
+    # Scrape category
+    story_category = results.find_all("a", itemprop="genre")
+    print(story_category)
+
     # Create a DataFrame to save the data
     data = {
         "URL": [url],
