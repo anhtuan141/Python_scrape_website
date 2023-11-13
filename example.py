@@ -1,5 +1,5 @@
 import requests
-import pandas as pd
+import pandas
 from bs4 import BeautifulSoup
 
 URL = "https://santruyen.com/doc-ton-truyen-ky-thanh-van-mon.614/"
@@ -21,24 +21,26 @@ def scrape_story(url):
     story_description_text = "".join(map(str, inner_html))
 
     # Scrape author
-    story_author = results.find("a", itemprop="author")
-    print(story_author.text)
+    story_author = results.find("a", itemprop="author").text
 
     # Scrape category
-    story_category = results.find_all("a", itemprop="genre")
-    print(story_category)
+    story_categories = results.find_all("a", itemprop="genre")
+    categories = [category.text for category in story_categories]
+    story_categories_text = ', '.join(map(str, categories))
 
     # Create a DataFrame to save the data
     data = {
         "URL": [url],
         "Story Name": [story_name],
-        "Story Description": [story_description_text]
+        "Story Description": [story_description_text],
+        "Story author": [story_author],
+        "Story categories": [story_categories_text]
     }
 
-    df = pd.DataFrame(data)
+    dataframe = pandas.DataFrame(data)
 
     # Save the DataFrame to the CSV file
-    df.to_csv(r"C:\Users\TuanBHA\story_info.csv", encoding="utf_8_sig", index=False)
+    dataframe.to_csv("/home/tuan/CSV/story_info.csv", encoding="utf_8_sig", index=False)
 
 
 scrape_story(URL)
